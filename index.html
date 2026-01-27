@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Byte Studio — Roblox Full-Stack Developer Team</title>
+
+<style>
+:root {
+  --accent: #550cff;
+  --glass: rgba(255,255,255,0.05);
+  --glass-border: rgb(250, 248, 248);
+  --glow: rgb(89, 20, 250);
+  --font: 'Inter', system-ui, sans-serif;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: var(--font);
+  background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* Animated Background Support */
+.bg-video {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-1;
+  opacity:0.6;
+  filter:blur(4px);
+}
+
+/* Hero */
+.hero {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:60px 80px;
+  min-height:85vh;
+  position:relative;
+}
+
+.hero h1 {
+  font-size:3.5rem;
+  font-weight:900;
+  line-height:1.1;
+  color:#fff;
+  filter:drop-shadow(0 0 20px rgba(85,12,255,0.8)) drop-shadow(0 0 40px rgba(0,212,255,0.6)) drop-shadow(0 0 80px rgba(255,0,128,0.4));
+  animation: textFloat 6s ease-in-out infinite, glowPulse 3s ease-in-out infinite alternate;
+  position:relative;
+  margin-bottom:20px;
+  border: 3px solid transparent;
+  border-image: linear-gradient(45deg, #550cff, #00d4ff, #ff0080, #550cff) 1;
+  border-radius: 15px;
+  padding: 20px 30px;
+  background: linear-gradient(145deg, rgba(85,12,255,0.1), rgba(0,212,255,0.05));
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 50px rgba(85,12,255,0.5), inset 0 0 50px rgba(85,12,255,0.1);
+  overflow: hidden;
+  text-align: center;
+  display: block;
+}
+
+.hero h1::before {
+  content:"";
+  position:absolute;
+  top:0; left:-100%;
+  width:100%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 6s infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+}
+
+@keyframes textFloat {
+  0%, 100% { transform:translateY(0); }
+  50% { transform:translateY(-3px); }
+}
+
+@keyframes shimmer {
+  0% { left:-100%; }
+  100% { left:100%; }
+}
+
+.hero .tagline {
+  font-size:1.25rem;
+  opacity:0.72;
+  margin-bottom:40px;
+}
+
+/* Emerald Glass Pro Buttons */
+.btn {
+  padding:16px 32px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:1.05rem;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:0.3s ease;
+}
+
+.btn-emerald {
+  background:linear-gradient(145deg, rgba(116, 57, 255, 0.993), rgb(30, 30, 30));
+  border:2px solid var(--accent);
+  color:var(--accent);
+  box-shadow:0 0 22px var(--glow);
+}
+.btn-emerald:hover {
+  transform:translateY(-4px) scale(1.06);
+  box-shadow:0 0 40px var(--glow);
+}
+
+.btn-primary {
+  background:var(--accent);
+  color:#000;
+  box-shadow:0 0 25px var(--glow);
+}
+.btn-primary:hover {
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 0 40px var(--glow);
+}
+
+.btn-secondary {
+  background:transparent;
+  border:2px solid var(--glass-border);
+  color:#fff;
+}
+.btn-secondary:hover {
+  border-color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 0 25px var(--glow);
+}
+
+/* Metrics */
+.production-metrics {
+  padding:60px 80px;
+}
+
+.metrics-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:24px;
+  margin-top:30px;
+}
+
+.metric {
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  padding:28px;
+  border-radius:18px;
+  backdrop-filter:blur(16px);
+  text-align:center;
+  transition:0.3s ease;
+}
+.metric:hover {
+  border-color:var(--accent);
+  transform:translateY(-5px);
+  box-shadow:0 0 30px var(--glow);
+}
+
+.metric-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  color: var(--accent);
+  transform: perspective(1000px) rotateX(15deg) rotateY(-15deg);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 8px 20px rgba(85,12,255,0.5)) brightness(1.1);
+  animation: icon3DFloat 4s ease-in-out infinite;
+}
+
+@keyframes icon3DFloat {
+  0%, 100% {
+    transform: perspective(1000px) rotateX(15deg) rotateY(-15deg) translateY(0) scale(1);
+    filter: drop-shadow(0 8px 20px rgba(85,12,255,0.5)) brightness(1.1);
+  }
+  50% {
+    transform: perspective(1000px) rotateX(15deg) rotateY(-15deg) translateY(-8px) scale(1.05);
+    filter: drop-shadow(0 12px 30px rgba(85,12,255,0.7)) brightness(1.2);
+  }
+}
+
+.metric:hover .metric-icon {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.15);
+  filter: drop-shadow(0 15px 40px rgba(85,12,255,0.9)) brightness(1.3);
+  animation: iconHoverSpin 0.6s ease-out;
+}
+
+@keyframes iconHoverSpin {
+  0% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.15) rotateZ(0deg); }
+  100% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.15) rotateZ(360deg); }
+}
+
+.metric h3 {
+  font-size:2.8rem;
+  font-weight:900;
+  margin:0;
+  color:var(--accent);
+  text-shadow:0 0 18px var(--glow);
+}
+
+/* Portfolio */
+.portfolio {
+  padding:60px 80px;
+}
+
+.portfolio-headline {
+  font-size:3rem;
+  font-weight:900;
+  margin-bottom:60px;
+  text-align:center;
+  background:linear-gradient(45deg, #550cff, #00d4ff, #ff0080, #550cff);
+  background-size:400% 400%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 0 40px var(--glow));
+  position:relative;
+  overflow:hidden;
+  animation: headlineGlow 3s ease-in-out infinite alternate, headlineShift 4s ease-in-out infinite;
+}
+
+.portfolio-headline::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg, transparent, rgba(85,12,255,0.4), transparent);
+  animation: shine 2s infinite;
+}
+
+.portfolio-headline::after {
+  content:"";
+  position:absolute;
+  bottom:-10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:4px;
+  background:linear-gradient(90deg, #550cff, #00d4ff, #ff0080);
+  animation: underlineExpand 2s ease-out 1s forwards;
+}
+
+@keyframes headlineGlow {
+  0% { filter:drop-shadow(0 0 20px var(--glow)); }
+  100% { filter:drop-shadow(0 0 60px var(--glow)); }
+}
+
+@keyframes headlineShift {
+  0%, 100% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+}
+
+@keyframes shine {
+  0% { left:-100%; }
+  100% { left:100%; }
+}
+
+@keyframes underlineExpand {
+  0% { width:0; }
+  100% { width:300px; }
+}
+
+.portfolio-filter {
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:40px;
+}
+
+.filter-btn {
+  background:var(--glass);
+  border:2px solid var(--glass-border);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s ease;
+  backdrop-filter:blur(10px);
+}
+.filter-btn:hover {
+  border-color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 0 20px var(--glow);
+}
+.filter-btn.active {
+  background:var(--accent);
+  color:#000000;
+  box-shadow:0 0 20px var(--glow);
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+.card {
+  background:linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  padding:24px;
+  backdrop-filter:blur(20px);
+  transition:0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.card::before {
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(45deg, transparent, rgba(85,12,255,0.1), transparent);
+  transform:translateX(-100%);
+  transition:transform 0.6s;
+}
+.card:hover::before {
+  transform:translateX(100%);
+}
+.card:hover {
+  border-color:var(--accent);
+  transform:translateY(-12px) rotate(1deg) scale(1.03);
+  box-shadow:0 20px 60px var(--glow), 0 0 0 1px rgba(85,12,255,0.3);
+  background:linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+}
+
+.card img {
+  width:100%;
+  max-width:200px;
+  height:120px;
+  object-fit:cover;
+  border-radius:8px;
+  transition:0.3s ease;
+}
+.card:hover img {
+  transform:scale(1.05);
+}
+
+.card video {
+  width:100%;
+  max-width:300px;
+  height:180px;
+  object-fit:contain;
+  border-radius:8px;
+  transition:0.3s ease;
+}
+.card:hover video {
+  transform:scale(1.05);
+}
+
+.card span {
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--accent);
+}
+
+.sample-card {
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  overflow:hidden;
+  backdrop-filter:blur(14px);
+  transition:0.3s ease;
+}
+.sample-card:hover {
+  border-color:var(--accent);
+  transform:translateY(-6px);
+  box-shadow:0 0 35px var(--glow);
+}
+
+.sample-card img {
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  display:block;
+}
+
+.sample-card .info {
+  padding:18px;
+}
+
+.sample-card .info h4 {
+  font-size:1.2rem;
+  font-weight:800;
+  margin-bottom:8px;
+  color:var(--accent);
+}
+
+/* Developer Team */
+.devs {
+  padding:60px 80px;
+  text-align:center;
+}
+
+.dev-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+
+.dev-card {
+  background:linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  padding:30px;
+  backdrop-filter:blur(20px);
+  transition:0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.dev-card::before {
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(45deg, transparent, rgba(85,12,255,0.1), transparent);
+  transform:translateX(-100%);
+  transition:transform 0.6s;
+}
+.dev-card:hover::before {
+  transform:translateX(100%);
+}
+.dev-card:hover {
+  border-color:var(--accent);
+  transform:translateY(-10px) rotate(1deg) scale(1.02);
+  box-shadow:0 20px 60px var(--glow), 0 0 0 1px rgba(85,12,255,0.3);
+  background:linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+}
+
+.dev-img {
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--accent);
+  box-shadow:0 0 20px var(--glow);
+  transition:0.4s ease;
+  margin-bottom:15px;
+}
+.dev-card:hover .dev-img {
+  transform:scale(1.1) rotate(5deg);
+  box-shadow:0 0 30px var(--glow);
+}
+
+.dev-card h4 {
+  font-size:1.4rem;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:10px;
+  text-shadow:0 0 10px var(--glow);
+  transition:0.3s;
+}
+.dev-card:hover h4 {
+  color:#fff;
+  text-shadow:0 0 20px var(--glow);
+}
+.dev-card p {
+  opacity:0.8;
+  font-size:0.95rem;
+  margin-bottom:15px;
+  transition:0.3s;
+}
+.dev-card:hover p {
+  opacity:1;
+}
+
+.discord-link {
+  display:inline-block;
+  background:linear-gradient(45deg, #5865f2, #7289da);
+  color:#fff;
+  padding:8px 16px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.9rem;
+  transition:0.3s ease;
+  box-shadow:0 4px 15px rgba(88,101,242,0.4);
+}
+.discord-link:hover {
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 6px 20px rgba(88,101,242,0.6);
+  background:linear-gradient(45deg, #4752c4, #5b6eae);
+}
+
+/* YouTube Channels Showcase */
+.youtube-showcase {
+  padding:40px 80px;
+  text-align:center;
+  margin-top:20px;
+}
+
+.yt-grid {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-top:25px;
+}
+
+.btn-yt {
+  background:rgb(0, 0, 0);
+  border:2px solid var(--accent);
+  color:var(--accent);
+  padding:14px 26px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:0.95rem;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  backdrop-filter:blur(10px);
+  text-decoration:none;
+  transition:0.3s;
+}
+.btn-yt:hover {
+  transform:translateY(-3px) scale(1.07);
+  box-shadow:0 0 30px var(--glow);
+}
+
+/* Star Rating */
+.star-rating {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:15px 0;
+  position:relative;
+}
+
+.star {
+  font-size:2.5rem;
+  color:#ffd700;
+  filter:drop-shadow(0 0 10px rgba(255,215,0,0.8));
+  animation:starGlow 2s ease-in-out infinite alternate, starRotate 4s linear infinite;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+.star:hover {
+  transform:scale(1.2);
+  filter:drop-shadow(0 0 20px rgba(255,215,0,1));
+  animation:starGlow 0.5s ease-in-out infinite alternate, starRotate 1s linear infinite;
+}
+
+.rating-text {
+  font-size:1.1rem;
+  font-weight:700;
+  color:#fff;
+  margin-left:15px;
+  text-shadow:0 0 10px var(--glow);
+  animation:textPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes starGlow {
+  0% { filter:drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
+  100% { filter:drop-shadow(0 0 20px rgba(255,215,0,1)); }
+}
+
+@keyframes starRotate {
+  0% { transform:rotate(0deg); }
+  100% { transform:rotate(360deg); }
+}
+
+@keyframes textPulse {
+  0% { text-shadow:0 0 10px var(--glow); }
+  100% { text-shadow:0 0 20px var(--glow); }
+}
+
+/* Particle Effects */
+.star-rating::before {
+  content:"";
+  position:absolute;
+  top:-20px; left:-20px;
+  width:calc(100% + 40px); height:calc(100% + 40px);
+  background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,215,0,0.6)"/></svg>') repeat;
+  opacity:0.3;
+  animation:floatParticles 10s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes floatParticles {
+  0% { transform:translateY(0); }
+  100% { transform:translateY(-100px); }
+}
+
+@keyframes textShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Animated Background -->
+<svg class="bg-video" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1">
+      <stop offset="0%" stop-color="#00f6ff" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="#8f00ff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00f6ff" stop-opacity="0.04"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="30" />
+    </filter>
+  </defs>
+
+  <g filter="url(#blur)">
+    <path fill="url(#g1)" d="M0 400 C200 300 400 500 600 450 C800 400 1000 300 1200 360 C1400 420 1600 380 1600 380 L1600 900 L0 900 Z">
+      <animate attributeName="d" dur="12s" repeatCount="indefinite"
+        values="M0 420 C200 320 400 520 600 470 C800 420 1000 320 1200 380 C1400 440 1600 400 1600 400 L1600 900 L0 900 Z; 
+                M0 380 C200 260 400 460 600 420 C800 380 1000 260 1200 320 C1400 380 1600 340 1600 340 L1600 900 L0 900 Z; 
+                M0 420 C200 320 400 520 600 470 C800 420 1000 320 1200 380 C1400 440 1600 400 1600 400 L1600 900 L0 900 Z"/>
+    </path>
+
+    <path fill="url(#g1)" opacity="0.7" d="M0 520 C300 420 500 620 800 580 C1100 540 1200 420 1600 480 L1600 900 L0 900 Z">
+      <animate attributeName="d" dur="16s" repeatCount="indefinite"
+        values="M0 540 C300 440 500 640 800 600 C1100 560 1200 440 1600 500 L1600 900 L0 900 Z;
+                M0 500 C300 380 500 580 800 540 C1100 500 1200 380 1600 440 L1600 900 L0 900 Z;
+                M0 540 C300 440 500 640 800 600 C1100 560 1200 440 1600 500 L1600 900 L0 900 Z"/>
+    </path>
+  </g>
+</svg>
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <h1><img src="images/byte studio.png" alt="Byte Studio Logo" style="width: 50px; height: 50px; margin-right: 10px; vertical-align: middle;"> BYTE STUDIO</h1>
+    <div class="star-rating">
+      <span class="star" data-rating="1">★</span>
+      <span class="star" data-rating="2">★</span>
+      <span class="star" data-rating="3">★</span>
+      <span class="star" data-rating="4">★</span>
+      <span class="star" data-rating="5">★</span>
+      <span class="rating-text">5.0 (Top Rated)</span>
+    </div>
+    <p class="tagline">Roblox Game Engineering • UI Systems • Gameplay Mechanics • 3D Gun Modeling</p>
+    <a class="btn btn-emerald" href="#portfolio">🎮 Our Roblox Portfolio</a>
+    <a class="btn btn-secondary" href="https://t.me/@Bytestudio1">Hire Our Team</a>
+    <a class="btn btn-secondary" href="https://www.roblox.com/users/10177181201/profile">Roblox Studio</a>
+  </div>
+  <img src="samples/team-hero.webp" width="460"/>
+</header>
+
+<!-- METRICS -->
+<section class="production-metrics">
+  <h2>REAL PRODUCTION METRICS</h2>
+  <div class="metrics-grid">
+    <div class="metric">
+      <svg class="metric-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 id="done">0</h3><p>Completed Game Builds</p>
+    </div>
+    <div class="metric">
+      <svg class="metric-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 id="progress">0</h3><p>Games In Progress</p>
+    </div>
+    <div class="metric">
+      <svg class="metric-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15C10.9391 15 9.92172 15.4214 9.17157 16.1716C8.42143 16.9217 8 17.9391 8 19V21M12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 id="clients">0</h3><p>Client Partnerships</p>
+    </div>
+    <div class="metric">
+      <svg class="metric-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 id="verified">0</h3><p>Verified Studio Clients</p>
+    </div>
+    <div class="metric">
+      <svg class="metric-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 7L12 13L4 7M4 7L12 1L20 7M4 7V17L12 23L20 17V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 id="samples">0</h3><p>Samples Delivered</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="portfolio-section">
+  <h2 class="portfolio-headline">PORTFOLIO SHOWCASE</h2>
+
+  <div class="portfolio-filter">
+    <button class="filter-btn" onclick="filter('all')">All</button>
+    <button class="filter-btn" onclick="filter('completed')">Completed</button>
+    <button class="filter-btn" onclick="filter('inprogress')">In Progress</button>
+    
+
+  </div>
+   <div class="grid">
+    <div class="card" data-status="completed">
+      <video src="samples/FPS Combat System.mp4" controls muted></video>
+      <div class="info">
+        <h4>🎯 FPS Combat System</h4>
+        <p class="description">Advanced first-person shooter mechanics with realistic ballistics, recoil systems, and multiplayer synchronization.</p>
+        <div class="meta">Tech: Lua, Roblox Engine | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/shop ui.png" alt="Advanced UI Framework">
+      <div class="info">
+        <h4>🖥️ Advanced UI Framework</h4>
+        <p class="description">Modular UI system with dynamic layouts, animations, and responsive design for seamless user experiences.</p>
+        <div class="meta">Tech: Roblox UI, Tweening | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/roblox axe.jpg" alt="axe Modeling Pack">
+      <div class="info">
+        <h4>🔫 Axe Modeling Pack</h4>
+        <p class="description">High-detail 3D Axe models with textures, animations, and performance-optimized for Roblox environments.</p>
+        <div class="meta">Tech: Blender, Roblox Studio | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/roblox Inventory System.jpeg" alt="Inventory System">
+      <div class="info">
+        <h4>📦 Inventory System</h4>
+        <p class="description">Comprehensive inventory management with drag-and-drop, stacking, and persistent data storage. Inventory sample.</p>
+        <div class="meta">Tech: Lua, Datastore | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <video src="samples/Anime Fighting Core.mp4" controls muted></video>
+      <div class="info">
+        <h4>⚔️ Anime Fighting Core</h4>
+        <p class="description">Dynamic combat system with combo chains, special moves, and character progression mechanics.</p>
+        <div class="meta">Tech: Lua, Animation | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/open world map.jpeg" alt="Open World Map">
+      <div class="info">
+        <h4>🌍 Open World Map</h4>
+        <p class="description">Large-scale procedural world generation with biomes, quests, and interactive environments.</p>
+        <div class="meta">Tech: Terrain Tools, Lua | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/roblox Vehicle Physics.jpg" alt="Vehicle Physics">
+      <div class="info">
+        <h4>🚗 Vehicle Physics</h4>
+        <p class="description">Realistic vehicle simulation with suspension, engine mechanics, and customizable handling.</p>
+        <div class="meta">Tech: Roblox Physics, Lua | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <video src="samples/roblox animation.mp4" controls muted></video>
+      <div class="info">
+        <h4>✨ VFX & Animations</h4>
+        <p class="description">Stunning visual effects and fluid animations for immersive gameplay experiences.</p>
+        <div class="meta">Tech: Particle Systems, Animation | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/roblox scripting.PNG" alt="Datastore Backend">
+      <div class="info">
+        <h4>💾 Datastore Backend</h4>
+        <p class="description">Robust data persistence system with backup, versioning, and cross-server synchronization.</p>
+        <div class="meta">Tech: Roblox Datastore API | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/roblox matchmaking system.jpg" alt="Matchmaking System">
+      <div class="info">
+        <h4>🎮 Matchmaking System</h4>
+        <p class="description">Advanced player matching algorithm with skill-based balancing and region optimization. Matchmaking sample.</p>
+        <div class="meta">Tech: Lua, TeleportService | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/roblox Roleplay UI.jpeg" alt="Roleplay UI">
+      <div class="info">
+        <h4>🎭 Roleplay UI</h4>
+        <p class="description">Interactive roleplay interface with character customization, dialogue systems, and social features. Roleplay UI sample.</p>
+        <div class="meta">Tech: Roblox UI, Lua | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/weapon shop ui.jpg" alt="Weapon Shop UI">
+      <div class="info">
+        <h4>🛒 Weapon Shop UI</h4>
+        <p class="description">Elegant marketplace interface with preview systems, purchase flows, and inventory integration. Weapon Shop UI sample.</p>
+        <div class="meta">Tech: Roblox UI, Marketplace | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/leaderboard system.jpg" alt="Leaderboard System">
+      <div class="info">
+        <h4>🏆 Leaderboard System</h4>
+        <p class="description">Global ranking system with seasonal resets, achievements, and competitive statistics. Leaderboard sample.</p>
+        <div class="meta">Tech: OrderedDatastore, Lua | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/npc ai system.jpg" alt="NPC AI System">
+      <div class="info">
+        <h4>🤖 NPC AI System</h4>
+        <p class="description">Intelligent non-player characters with pathfinding, behavior trees, and dynamic interactions. NPC AI sample.</p>
+        <div class="meta">Tech: PathfindingService, Lua | Status: Completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/optimization pass.png" alt="Optimization Pass">
+      <div class="info">
+        <h4>⚡ Optimization Pass</h4>
+        <p class="description">Performance enhancement project focusing on frame rate, memory usage, and loading times. Optimization sample.</p>
+        <div class="meta">Tech: Profiling Tools, Lua | Status: completed</div>
+      </div>
+    </div>
+    <div class="card" data-status="completed">
+      <img src="samples/procedural terrain generator.png" alt="Procedural Terrain Generator">
+      <div class="info">
+        <h4>🌋 Procedural Terrain Generator</h4>
+        <p class="description">Advanced terrain generation system with biomes, caves, and dynamic weather integration. Terrain sample.</p>
+        <div class="meta">Tech: Terrain API, Noise Functions | Status: Completed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- YouTube Showcase AFTER Portfolio -->
+<section class="youtube-showcase">
+  <h2>Our Work on YouTube</h2>
+  <div class="yt-grid">
+    <a class="btn-yt" href="https://youtube.com/@bobertroblox?si=1D405xZNbBUZUH1Z">Channel 1</a>
+    <a class="btn-yt" href="https://youtube.com/@levixkiler?si=L9UknnJZSJ9nV_hZ">Channel 2</a>
+    <a class="btn-yt" href="https://youtube.com/@_hazaze?si=yrbz4VjqW3boDaq_">Channel 3</a>
+    <a class="btn-yt" href="https://youtube.com/@niskyroblox?si=vaJwDw45IEDXG7VCS">Channel 4</a>
+    <a class="btn-yt" href="https://youtube.com/@raventheredcrystal?si=25IGx_IzHQG9NcsU">Channel 5</a>
+  </div>
+</section>
+
+<!-- 7 DEVS -->
+<section class="devs section">
+  <h2><img src="images/byte studio.png" alt="Byte Studio Logo" style="width: 50px; height: 50px; margin-right: 10px; vertical-align: middle;"> BYTE STUDIO EXPERT DEVELOPERS</h2>
+  <div class="dev-grid">
+    <div class="dev-card">
+      <img src="images/team1.png" alt="Muhammed Ali" class="dev-img">
+      <h4>Muhammed Ali</h4>
+      <p>UI/UX Systems Expert</p>
+      <a href="https://discord.com/users/1447378089683324979" class="discord-link" target="_blank">Discord</a>
+    </div>
+    <div class="dev-card">
+      <img src="images/team2.png" alt="Muheeb imole" class="dev-img">
+      <h4>Muheeb imole</h4>
+      <p>3D Gun Modeling Pro</p>
+      <a href="https://discord.com/users/1447382616918724638" class="discord-link" target="_blank">Discord</a>
+    </div>
+    <div class="dev-card">
+      <img src="images/team3.png" alt="hamza" class="dev-img">
+      <h4>hamza</h4>
+      <p>Gameplay Mechanics Engineer</p>
+      <a href="https://discord.com/users/1447386964759412768" class="discord-link" target="_blank">Discord</a>
+    </div>
+    <div class="dev-card">
+      <img src="images/team4.png" alt="Mengqi (梦琪)💖" class="dev-img">
+      <h4>Mengqi (梦琪)💖</h4>
+      <p>Backend + Datastore Specialist</p>
+      <a href="https://discord.com/users/1447384726926131240" class="discord-link" target="_blank">Discord</a>
+    </div>
+    <div class="dev-card">
+      <img src="images/team5.png" alt="Victor zixion" class="dev-img">
+      <h4>Victor zixion</h4>
+      <p>FPS Combat System Coder</p>
+      <a href="https://discord.com/users/1447381140305350759" class="discord-link" target="_blank">Discord</a>
+    </div>
+    <div class="dev-card">
+      <img src="images/team6.png" alt="isholar ade" class="dev-img">
+      <h4>isholar ade</h4>
+      <p>Animation + VFX Integrator</p>
+      <a href="https://discord.com/users/1447549996323962880" class="discord-link" target="_blank">Discord</a>
+    </div>
+    <div class="dev-card">
+      <img src="images/team7.png" alt="MDK Dev" class="dev-img">
+      <h4>MDK Dev</h4>
+      <p>Performance & Optimization Lead</p>
+      <a href="https://discord.com/users/1452425206491517032" class="discord-link" target="_blank">Discord</a>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT METHODS (LAST OF PORTFOLIO FLOW) -->
+<section class="payments">
+  <h2 class="pay-heading">Choose Your Payment Method</h2>
+  <p class="pay-sub">Fast, secure, and global transactions. <strong>NO RoBuX accepted.</strong></p>
+
+  <div class="payment-methods-grid">
+
+    <button class="pay-btn">
+      <img src="badges/paypal.png" alt="PayPal"/>
+      Pay with PayPal
+    </button>
+
+    <button class="pay-btn">
+      <img src="badges/cashapp.png" alt="CashApp"/>
+      Pay with CashApp
+    </button>
+
+    <button class="pay-btn">
+      <img src="badges/crypto.png" alt="Crypto"/>
+      Pay with Crypto
+    </button>
+
+    <button class="pay-btn">
+      <img src="badges/card.png" alt="Card"/>
+      Credit/Debit Card
+    </button>
+
+    <button class="pay-btn">
+      <img src="badges/bank transfer.png" alt="Bank"/>
+      Bank Transfer
+    </button>
+
+  </div>
+
+  <div class="extra-decoration">
+    <div class="line-glow"></div>
+    <div class="circle-glow"></div>
+  </div>
+</section>
+
+<style>
+.payments {
+  padding:70px 80px;
+  text-align:center;
+  position:relative;
+  background: linear-gradient(45deg, rgba(85,12,255,0.05), rgba(0,212,255,0.03), rgba(255,0,128,0.02));
+  background-size: 400% 400%;
+  animation: bgShift 10s ease infinite;
+}
+
+.pay-heading {
+  font-size:2.6rem;
+  font-weight:900;
+  background:linear-gradient(120deg,#8B5CF6,#fff);
+  background-size: 200% 200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 26px var(--glow));
+  margin-bottom:12px;
+  animation: textShimmer 3s ease-in-out infinite;
+}
+
+.pay-sub {
+  opacity:0.7;
+  font-size:1rem;
+  margin-bottom:32px;
+}
+
+.payment-methods-grid {
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  max-width:900px;
+  margin:auto;
+}
+
+.pay-btn {
+  background:rgba(255,255,255,0.06);
+  border:2px solid rgba(139,92,246,0.4);
+  backdrop-filter:blur(14px);
+  padding:16px 28px;
+  border-radius:14px;
+  font-weight:800;
+  font-size:1rem;
+  color:#8B5CF6;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  box-shadow:0 0 18px var(--glow);
+  transition:0.4s ease;
+  position:relative;
+  overflow:hidden;
+  animation: floatBtn 4s ease-in-out infinite;
+}
+
+.pay-btn img {
+  width:24px;
+  height:24px;
+  object-fit:contain;
+  opacity:0.9;
+}
+
+.pay-btn:hover {
+  transform:translateY(-6px) scale(1.08) rotate(2deg);
+  border-color:#6ef7d2;
+  box-shadow:0 0 50px var(--glow), 0 0 100px rgba(139,92,246,0.5);
+  color:#fff;
+}
+
+/* Shine effect on hover */
+.pay-btn::after {
+  content:"";
+  position:absolute;
+  top:-120%; left:-120%;
+  width:240%; height:240%;
+  background:radial-gradient(circle,rgba(139,92,246,0.25),transparent 70%);
+  opacity:0;
+  transition:opacity 0.5s;
+}
+.pay-btn:hover::after { opacity:1; }
+
+/* Decorative glows */
+.extra-decoration .line-glow {
+  width:220px;
+  height:4px;
+  border-radius:50%;
+  background:var(--accent);
+  opacity:0.35;
+  margin:40px auto 0;
+  filter:blur(6px);
+  animation:stretch 3s infinite alternate ease-in-out;
+}
+@keyframes stretch {
+  from{transform:scaleX(0.6);} to{transform:scaleX(1.4);}
+}
+
+.circle-glow {
+  position:absolute;
+  bottom:-120px;
+  left:50%;
+  transform:translateX(-50%);
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle,rgba(139,92,246,0.12),transparent 65%);
+  filter:blur(60px);
+  opacity:0.5;
+  z-index:-1;
+}
+
+/* New animations */
+@keyframes bgShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes textShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes floatBtn {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Particle effect */
+.payments::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(139,92,246,0.3)"/></svg>') repeat;
+  opacity: 0.1;
+  animation: particleFloat 15s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100px); }
+}
+</style>
+
+
+<script>
+// Auto counters up to target
+animate("done", 103);
+animate("progress", 56);
+animate("clients", 48);
+animate("verified", 50);
+animate("samples", 35);
+
+function animate(id,target){
+ let n=1;
+ const step=()=>{ document.getElementById(id).innerText=n; if(n<target){n++;requestAnimationFrame(step);} };
+ step();
+}
+
+// Portfolio Filter Function
+function filter(status, btn) {
+  const cards = document.querySelectorAll('.card');
+  const buttons = document.querySelectorAll('.filter-btn');
+
+  // Remove active class from all buttons
+  buttons.forEach(b => b.classList.remove('active'));
+
+  // Add active class to clicked button
+  btn.classList.add('active');
+
+  // Show/hide cards based on status
+  cards.forEach(card => {
+    const cardStatus = card.getAttribute('data-status');
+    if (status === 'all' || cardStatus === status) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
