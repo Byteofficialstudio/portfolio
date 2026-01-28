@@ -1,0 +1,11 @@
+{
+  "name": "byte-studio-screenshots",
+  "version": "1.0.0",
+  "scripts": {
+    "screenshot": "node screenshot.js",
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "dependencies": {
+    "puppeteer": "^22.8.2"
+  }
+}
